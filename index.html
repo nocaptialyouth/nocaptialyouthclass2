@@ -1,187 +1,250 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NEON SNAKE - 미래형 네온 지렁이 게임</title>
-    <meta name="description" content="네온 스타일의 감각적인 그래픽, 다양한 게임 모드와 사운드를 탑재한 프리미엄 웹 지렁이 게임을 즐겨보세요!">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>전국 여성·소아 의료기관 찾기 | 산부인과·소아과·달빛어린이병원·응급실</title>
+  <meta name="description" content="전국 산부인과, 여성병원, 소아과, 소아청소년과, 달빛어린이병원, 소아응급실을 지역별로 바로 검색하세요. 동네 의원까지 포함." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="search.css" />
 </head>
 <body>
-    <!-- Background Glow Blobs -->
-    <div class="glow-blob blob-1"></div>
-    <div class="glow-blob blob-2"></div>
-    
-    <div class="app-container">
-        <!-- Header -->
-        <header class="game-header">
-            <h1 class="glow-text">NEON SNAKE</h1>
-            <p class="subtitle">Cyber Arcade Edition</p>
-        </header>
-        
-        <!-- Main Board & Controls -->
-        <main class="game-main">
-            <!-- Left Panel: Settings -->
-            <section class="side-panel settings-panel">
-                <h2>Game Settings</h2>
-                
-                <div class="setting-group">
-                    <label for="mode-select">Game Mode</label>
-                    <div class="custom-select-wrapper">
-                        <select id="mode-select" class="neon-select">
-                            <option value="classic">Classic (기본)</option>
-                            <option value="obstacles">Obstacles (장애물)</option>
-                            <option value="portals">Portals (포탈)</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="setting-group">
-                    <label for="difficulty-select">Difficulty</label>
-                    <div class="custom-select-wrapper">
-                        <select id="difficulty-select" class="neon-select">
-                            <option value="easy">Easy (쉬움)</option>
-                            <option value="medium" selected>Medium (보통)</option>
-                            <option value="hard">Hard (어려움)</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <!-- Legend -->
-                <div class="game-legend">
-                    <h3>Item Types</h3>
-                    <div class="legend-item">
-                        <span class="legend-color normal-food"></span>
-                        <div class="legend-desc">
-                            <strong>Normal (일반)</strong>
-                            <span>+10점. 길이 1칸 증가</span>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color gold-food"></span>
-                        <div class="legend-desc">
-                            <strong>Golden (황금)</strong>
-                            <span>+30점. 5초 후 소멸</span>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color speed-food"></span>
-                        <div class="legend-desc">
-                            <strong>Speed Boost (가속)</strong>
-                            <span>+20점. 5초간 이동 속도 증가</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Center: Game Board -->
-            <section class="board-panel">
-                <!-- Dashboard -->
-                <div class="game-dashboard">
-                    <div class="score-container">
-                        <div class="score-box">
-                            <span class="score-label">SCORE</span>
-                            <span id="current-score" class="score-val">000</span>
-                        </div>
-                        <div class="score-box">
-                            <span class="score-label">HIGH SCORE</span>
-                            <span id="high-score" class="score-val">000</span>
-                        </div>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <!-- Mute Button -->
-                        <button id="btn-mute" class="icon-btn" aria-label="음소거 설정">
-                            <svg id="svg-mute-off" class="icon" viewBox="0 0 24 24">
-                                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-                            </svg>
-                            <svg id="svg-mute-on" class="icon hidden" viewBox="0 0 24 24">
-                                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-                            </svg>
-                        </button>
-                        
-                        <!-- Pause Button -->
-                        <button id="btn-pause" class="icon-btn" aria-label="일시정지">
-                            <svg id="svg-pause" class="icon" viewBox="0 0 24 24">
-                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                            </svg>
-                            <svg id="svg-play" class="icon hidden" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Canvas Container -->
-                <div class="canvas-container" id="canvas-container">
-                    <canvas id="game-canvas" width="480" height="480"></canvas>
-                    
-                    <!-- Screen Overlays -->
-                    <!-- Start Overlay -->
-                    <div id="overlay-start" class="board-overlay">
-                        <div class="overlay-content">
-                            <h2 class="neon-title glow-pink">READY TO RUN?</h2>
-                            <p class="overlay-desc">방향키(←, ↑, ↓, →) 또는 W, A, S, D 키를 사용하여 지렁이를 움직이세요.</p>
-                            <button id="btn-start" class="btn btn-primary neon-btn-blue">START GAME</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Game Over Overlay -->
-                    <div id="overlay-gameover" class="board-overlay hidden">
-                        <div class="overlay-content">
-                            <h2 class="neon-title glow-red">SYSTEM FAIL</h2>
-                            <p class="gameover-reason" id="gameover-reason">벽에 충돌했습니다!</p>
-                            <div class="score-report">
-                                <div>FINAL SCORE: <span id="final-score" class="accent-text">0</span></div>
-                                <div id="new-high-score-tag" class="hidden glow-gold">NEW HIGH SCORE!</div>
-                            </div>
-                            <button id="btn-retry" class="btn btn-primary neon-btn-pink">RETRY</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Pause Overlay -->
-                    <div id="overlay-paused" class="board-overlay hidden">
-                        <div class="overlay-content">
-                            <h2 class="neon-title glow-blue">PAUSED</h2>
-                            <p class="overlay-desc">게임이 일시 정지되었습니다.</p>
-                            <button id="btn-resume" class="btn btn-primary neon-btn-blue">RESUME</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Mobile D-pad -->
-                <div class="mobile-dpad">
-                    <button class="dpad-btn up" id="dpad-up" aria-label="위로">
-                        <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
-                    </button>
-                    <div class="dpad-middle">
-                        <button class="dpad-btn left" id="dpad-left" aria-label="왼쪽으로">
-                            <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/></svg>
-                        </button>
-                        <div class="dpad-center"></div>
-                        <button class="dpad-btn right" id="dpad-right" aria-label="오른쪽으로">
-                            <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-                        </button>
-                    </div>
-                    <button class="dpad-btn down" id="dpad-down" aria-label="아래로">
-                        <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
-                    </button>
-                </div>
-            </section>
-        </main>
-        
-        <!-- Footer -->
-        <footer class="game-footer">
-            <p>Designed and Built with Antigravity AI. Use keys WASD / Arrows to navigate.</p>
-        </footer>
+
+  <!-- 헤더 -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <div class="logo-icon">🏥</div>
+        <div class="logo-text">
+          <span class="logo-main">여성·소아 의료기관 찾기</span>
+          <span class="logo-sub">동네 의원부터 대형병원까지 한 번에</span>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="#search-section">병원 검색</a>
+        <a href="#dalbit-section">달빛어린이병원</a>
+        <a href="#emergency-section">소아응급실</a>
+      </nav>
     </div>
-    
-    <script src="app.js"></script>
+  </header>
+
+  <!-- 히어로 -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🔍 동네 의원·병원 한번에 검색</div>
+      <h1 class="hero-title">
+        <span class="highlight">여성·소아</span> 의료기관<br/>바로 찾기
+      </h1>
+      <p class="hero-desc">
+        산부인과 · 여성병원 · 소아과 · 소아청소년과<br/>
+        달빛어린이병원 · 소아응급실까지 이 페이지에서 바로 확인
+      </p>
+      <!-- 빠른 접근 버튼 -->
+      <div class="quick-btns">
+        <button class="quick-btn" onclick="scrollToSearch('산부인과')">🌸 산부인과</button>
+        <button class="quick-btn" onclick="scrollToSearch('부인과')">🚺 부인과</button>
+        <button class="quick-btn" onclick="scrollToSearch('여성병원')">🏥 여성병원</button>
+        <button class="quick-btn" onclick="scrollToSearch('소아청소년과')">👶 소아청소년과</button>
+        <button class="quick-btn" onclick="scrollToSearch('어린이병원')">🧸 어린이병원</button>
+        <button class="quick-btn" onclick="scrollToSearch('출산/난임')">🤰 출산/난임</button>
+        <button class="quick-btn dalbit-btn" onclick="scrollToSearch('달빛어린이병원')">🌙 달빛어린이병원</button>
+        <button class="quick-btn emergency-btn" onclick="scrollToSearch('소아응급실')">🚨 소아응급실</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       메인 검색 섹션
+  ================================ -->
+  <section class="search-section" id="search-section">
+    <div class="container">
+
+      <div class="search-box">
+        <div class="search-box-title">
+          <span>🔍</span> 의료기관 통합 검색
+          <span class="data-count-badge" id="data-count-badge">데이터 로딩중...</span>
+        </div>
+
+        <!-- 진료과목 탭 -->
+        <div class="dept-tabs">
+          <button class="dept-tab active" data-dept="전체" id="tab-all">전체</button>
+          <button class="dept-tab" data-dept="산부인과">🌸 산부인과</button>
+          <button class="dept-tab" data-dept="부인과">🚺 부인과</button>
+          <button class="dept-tab" data-dept="여성병원">🏥 여성병원</button>
+          <button class="dept-tab" data-dept="소아과">👶 소아과</button>
+          <button class="dept-tab" data-dept="소아청소년과">🧒 소아청소년과</button>
+          <button class="dept-tab" data-dept="어린이병원">🧸 어린이병원</button>
+          <button class="dept-tab" data-dept="출산/난임">🤰 출산/난임</button>
+          <button class="dept-tab" data-dept="달빛어린이병원">🌙 달빛어린이병원</button>
+          <button class="dept-tab" data-dept="소아응급실">🚨 소아응급실</button>
+        </div>
+
+        <!-- 기관 유형 필터 -->
+        <div class="category-filters">
+          <span class="filter-label">기관 유형</span>
+          <label class="filter-check"><input type="checkbox" name="catFilter" value="의원" checked /> 의원</label>
+          <label class="filter-check"><input type="checkbox" name="catFilter" value="병원" checked /> 병원</label>
+          <label class="filter-check"><input type="checkbox" name="catFilter" value="종합병원" checked /> 종합병원</label>
+          <label class="filter-check"><input type="checkbox" name="catFilter" value="전문병원" checked /> 전문병원</label>
+        </div>
+
+        <!-- 지역·이름 검색 -->
+        <div class="search-inputs">
+          <div class="input-group">
+            <label class="input-label" for="sido-select">시 · 도</label>
+            <select id="sido-select" class="select-input">
+              <option value="">전체 지역</option>
+              <option value="서울특별시">서울특별시</option>
+              <option value="부산광역시">부산광역시</option>
+              <option value="대구광역시">대구광역시</option>
+              <option value="인천광역시">인천광역시</option>
+              <option value="광주광역시">광주광역시</option>
+              <option value="대전광역시">대전광역시</option>
+              <option value="울산광역시">울산광역시</option>
+              <option value="세종특별자치시">세종특별자치시</option>
+              <option value="경기도">경기도</option>
+              <option value="강원특별자치도">강원특별자치도</option>
+              <option value="충청북도">충청북도</option>
+              <option value="충청남도">충청남도</option>
+              <option value="전북특별자치도">전북특별자치도</option>
+              <option value="전라남도">전라남도</option>
+              <option value="경상북도">경상북도</option>
+              <option value="경상남도">경상남도</option>
+              <option value="제주특별자치도">제주특별자치도</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="sigungu-select">시 · 군 · 구</label>
+            <select id="sigungu-select" class="select-input" disabled>
+              <option value="">시/도 먼저 선택</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="name-input">병원명 · 주소</label>
+            <input type="text" id="name-input" class="text-input" placeholder="병원명 또는 동/읍/면 입력" />
+          </div>
+          <button class="search-btn" onclick="doSearch()">
+            <span>🔍</span> 검색
+          </button>
+        </div>
+      </div>
+
+      <!-- 검색 결과 -->
+      <div class="results-area" id="results-area">
+        <div class="results-placeholder">
+          <div class="placeholder-icon">🏥</div>
+          <div class="placeholder-text">지역을 선택하거나 병원명을 입력하고 검색하세요</div>
+          <div class="placeholder-sub">산부인과 · 여성병원 · 소아과 · 소아청소년과 · 동네 의원까지 결과가 표시됩니다</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       달빛어린이병원 전용 섹션
+  ================================ -->
+  <section class="special-section dalbit-section" id="dalbit-section">
+    <div class="container">
+      <div class="special-header">
+        <div class="special-header-icon">🌙</div>
+        <div>
+          <h2 class="special-title">달빛어린이병원</h2>
+          <p class="special-desc">평일 야간(21시 이후) · 주말·공휴일에도 소아청소년과 진료 — 보건복지부 지정</p>
+        </div>
+      </div>
+
+      <!-- 달빛 지역 필터 -->
+      <div class="dalbit-region-filter">
+        <button class="region-pill active" data-sido="전체" onclick="filterDalbit('전체', this)">전국 전체</button>
+        <button class="region-pill" data-sido="서울특별시" onclick="filterDalbit('서울특별시', this)">서울</button>
+        <button class="region-pill" data-sido="부산광역시" onclick="filterDalbit('부산광역시', this)">부산</button>
+        <button class="region-pill" data-sido="대구광역시" onclick="filterDalbit('대구광역시', this)">대구</button>
+        <button class="region-pill" data-sido="인천광역시" onclick="filterDalbit('인천광역시', this)">인천</button>
+        <button class="region-pill" data-sido="광주광역시" onclick="filterDalbit('광주광역시', this)">광주</button>
+        <button class="region-pill" data-sido="대전광역시" onclick="filterDalbit('대전광역시', this)">대전</button>
+        <button class="region-pill" data-sido="울산광역시" onclick="filterDalbit('울산광역시', this)">울산</button>
+        <button class="region-pill" data-sido="세종특별자치시" onclick="filterDalbit('세종특별자치시', this)">세종</button>
+        <button class="region-pill" data-sido="경기도" onclick="filterDalbit('경기도', this)">경기</button>
+        <button class="region-pill" data-sido="강원특별자치도" onclick="filterDalbit('강원특별자치도', this)">강원</button>
+        <button class="region-pill" data-sido="충청북도" onclick="filterDalbit('충청북도', this)">충북</button>
+        <button class="region-pill" data-sido="충청남도" onclick="filterDalbit('충청남도', this)">충남</button>
+        <button class="region-pill" data-sido="전북특별자치도" onclick="filterDalbit('전북특별자치도', this)">전북</button>
+        <button class="region-pill" data-sido="전라남도" onclick="filterDalbit('전라남도', this)">전남</button>
+        <button class="region-pill" data-sido="경상북도" onclick="filterDalbit('경상북도', this)">경북</button>
+        <button class="region-pill" data-sido="경상남도" onclick="filterDalbit('경상남도', this)">경남</button>
+        <button class="region-pill" data-sido="제주특별자치도" onclick="filterDalbit('제주특별자치도', this)">제주</button>
+      </div>
+
+      <div class="dalbit-results" id="dalbit-results">
+        <!-- JS로 렌더링 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       소아응급실 전용 섹션
+  ================================ -->
+  <section class="special-section emergency-section" id="emergency-section">
+    <div class="container">
+      <div class="special-header">
+        <div class="special-header-icon">🚨</div>
+        <div>
+          <h2 class="special-title">소아 응급실</h2>
+          <p class="special-desc">24시간 소아청소년과 응급진료 가능 의료기관 — 권역응급의료센터 지정</p>
+        </div>
+      </div>
+
+      <!-- 응급실 지역 필터 -->
+      <div class="dalbit-region-filter">
+        <button class="region-pill region-pill-red active" data-sido="전체" onclick="filterEmergency('전체', this)">전국 전체</button>
+        <button class="region-pill region-pill-red" data-sido="서울특별시" onclick="filterEmergency('서울특별시', this)">서울</button>
+        <button class="region-pill region-pill-red" data-sido="부산광역시" onclick="filterEmergency('부산광역시', this)">부산</button>
+        <button class="region-pill region-pill-red" data-sido="대구광역시" onclick="filterEmergency('대구광역시', this)">대구</button>
+        <button class="region-pill region-pill-red" data-sido="인천광역시" onclick="filterEmergency('인천광역시', this)">인천</button>
+        <button class="region-pill region-pill-red" data-sido="광주광역시" onclick="filterEmergency('광주광역시', this)">광주</button>
+        <button class="region-pill region-pill-red" data-sido="대전광역시" onclick="filterEmergency('대전광역시', this)">대전</button>
+        <button class="region-pill region-pill-red" data-sido="울산광역시" onclick="filterEmergency('울산광역시', this)">울산</button>
+        <button class="region-pill region-pill-red" data-sido="경기도" onclick="filterEmergency('경기도', this)">경기</button>
+        <button class="region-pill region-pill-red" data-sido="강원특별자치도" onclick="filterEmergency('강원특별자치도', this)">강원</button>
+        <button class="region-pill region-pill-red" data-sido="충청북도" onclick="filterEmergency('충청북도', this)">충북</button>
+        <button class="region-pill region-pill-red" data-sido="충청남도" onclick="filterEmergency('충청남도', this)">충남</button>
+        <button class="region-pill region-pill-red" data-sido="전북특별자치도" onclick="filterEmergency('전북특별자치도', this)">전북</button>
+        <button class="region-pill region-pill-red" data-sido="전라남도" onclick="filterEmergency('전라남도', this)">전남</button>
+        <button class="region-pill region-pill-red" data-sido="경상북도" onclick="filterEmergency('경상북도', this)">경북</button>
+        <button class="region-pill region-pill-red" data-sido="경상남도" onclick="filterEmergency('경상남도', this)">경남</button>
+        <button class="region-pill region-pill-red" data-sido="제주특별자치도" onclick="filterEmergency('제주특별자치도', this)">제주</button>
+      </div>
+
+      <div class="emergency-notice">
+        ⚠️ 응급상황 시 <strong>119</strong> 또는 <strong>1339(응급의료정보센터)</strong>로 먼저 연락하세요
+      </div>
+
+      <div class="dalbit-results" id="emergency-results">
+        <!-- JS로 렌더링 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo"><span>🏥</span> 여성·소아 의료기관 찾기</div>
+        <div class="footer-links">
+          <a href="https://www.hira.or.kr" target="_blank">심평원</a> |
+          <a href="https://www.mohw.go.kr" target="_blank">보건복지부</a> |
+          <a href="https://www.kacap.or.kr" target="_blank">소아청소년과학회</a> |
+          <a href="https://www.e-gen.or.kr" target="_blank">응급의료포털(E-GEN)</a>
+        </div>
+        <div class="footer-copy">본 서비스는 공공 의료정보 안내를 위한 참고용 페이지입니다. 진료 정보는 각 기관에 직접 확인하세요.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="search.js"></script>
 </body>
 </html>

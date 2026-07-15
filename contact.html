@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>문의하기 | 전국 재활·요양기관 통합 안내 포털</title>
+    <!-- 구글 애드센스 연동 스크립트 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8777128879154634" crossorigin="anonymous"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .contact-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            max-width: 600px;
+            width: 100%;
+            margin: 40px auto;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .contact-subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1.5px solid var(--border);
+            background-color: var(--bg-app);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
+        }
+
+        .form-textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .notice-box {
+            background-color: rgba(13, 148, 136, 0.05);
+            border: 1px dashed var(--primary);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 25px;
+            font-size: 13.5px;
+            color: var(--primary-dark);
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .btn-submit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px 24px;
+            border-radius: 12px;
+            background-color: var(--primary);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .nav-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background-color: #f1f5f9;
+            color: #475569;
+            font-size: 13.5px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .nav-home-btn:hover {
+            background-color: #e2e8f0;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Gradient Blobs -->
+    <div class="glow-blob blob-teal"></div>
+    <div class="glow-blob blob-blue"></div>
+
+    <div class="app-container">
+        <!-- Top Bar Navigation -->
+        <nav class="top-nav" aria-label="상단 네비게이션">
+            <div class="brand-container">
+                <span class="brand-icon">✚</span>
+                <span class="brand-text">전국 재활·요양기관 안내</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-home-btn">🏠 홈으로 가기</a>
+            </div>
+        </nav>
+
+        <main class="main-content" style="display: flex; justify-content: center; align-items: center; min-height: calc(100vh - 160px);">
+            <div class="contact-card">
+                <div class="contact-header">
+                    <h1 class="contact-title">✉️ 문의하기</h1>
+                    <p class="contact-subtitle">재활·요양기관 안내 포털에 문의하실 내용을 적어주세요.<br>메일 보내기 클릭 시 메일 발송 프로그램이 연동됩니다.</p>
+                </div>
+
+                <div class="notice-box">
+                    <strong>💡 전송 시 안내사항:</strong><br>
+                    작성하신 내용을 바탕으로 메일 전송 창이 자동으로 열립니다. 최종 전송 화면에서 <strong>rkstmtk@gmail.com</strong>으로 문의 메일을 최종 발송해 주시기 바랍니다.
+                </div>
+
+                <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label for="senderName" class="form-label">보내시는 분 성함 *</label>
+                        <input type="text" id="senderName" class="form-input" required placeholder="홍길동">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="senderContact" class="form-label">연락처 *</label>
+                        <input type="tel" id="senderContact" class="form-input" required placeholder="010-1234-5678">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="senderEmail" class="form-label">보내시는 메일 주소 *</label>
+                        <input type="email" id="senderEmail" class="form-input" required placeholder="example@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="messageContent" class="form-label">문의 내용 *</label>
+                        <textarea id="messageContent" class="form-input form-textarea" required placeholder="문의하실 상세 내용을 적어주세요."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <span>✉️ 이메일 작성 및 전송하기</span>
+                    </button>
+                </form>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p class="footer-copy">© 2026 전국 재활·요양기관 통합 안내 포털. All rights reserved.</p>
+            <div class="footer-links" style="margin-top: 15px; display: flex; justify-content: center; gap: 15px; font-size: 13.5px; flex-wrap: wrap;">
+                <a href="privacy.html" style="color: var(--text-muted); text-decoration: none; font-weight: 700;">개인정보처리방침</a>
+                <span style="color: var(--border);">|</span>
+                <a href="terms.html" style="color: var(--text-muted); text-decoration: none; font-weight: 700;">이용약관</a>
+                <span style="color: var(--border);">|</span>
+                <a href="disclaimer.html" style="color: var(--text-muted); text-decoration: none; font-weight: 700;">책임한계 및 법적고지</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Alert Modal / UI Notifications instead of plain browser alert for premium feel -->
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('senderName').value.trim();
+            const contact = document.getElementById('senderContact').value.trim();
+            const email = document.getElementById('senderEmail').value.trim();
+            const message = document.getElementById('messageContent').value.trim();
+
+            if (!name || !contact || !email || !message) {
+                alert('모든 필수 항목을 입력해 주세요.');
+                return;
+            }
+
+            // User message instructions as requested: "rkstmtk@gmail.com으로 문의 메일 보내주세요"
+            const alertMessage = "입력하신 정보로 이메일 전송을 시작합니다.\n\n[확인]을 누르면 메일 창이 자동으로 실행됩니다.\n최종 화면에서 'rkstmtk@gmail.com'으로 문의 메일을 전송해 주세요!";
+            
+            alert(alertMessage);
+
+            // Construct mailto link
+            const mailtoTarget = "rkstmtk@gmail.com";
+            const subject = encodeURIComponent("[문의] 재활·요양기관 통합 안내 포털 문의");
+            const body = encodeURIComponent(
+                "안녕하세요, 재활·요양기관 통합 안내 포털 문의 내용입니다.\n\n" +
+                "- 보내시는 분 성함: " + name + "\n" +
+                "- 연락처: " + contact + "\n" +
+                "- 보내시는 메일 주소: " + email + "\n\n" +
+                "[문의 상세 내용]\n" + message + "\n"
+            );
+
+            // Trigger the email
+            window.location.href = `mailto:${mailtoTarget}?subject=${subject}&body=${body}`;
+        }
+    </script>
+</body>
+</html>
