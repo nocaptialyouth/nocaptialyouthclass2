@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnToggleTheme      = document.getElementById('btnToggleTheme');
     const themeIcon           = document.getElementById('themeIcon');
     const btnShareTop         = document.getElementById('btnShareTop');
-    const btnOpenConsult      = document.getElementById('btnOpenConsult');
 
     // 통계 바
     const statsBar            = document.getElementById('statsBar');
@@ -81,16 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnDismissArticleModal = document.getElementById('btnDismissArticleModal');
     const btnShareArticleModal= document.getElementById('btnShareArticleModal');
 
-    // [모달 3] 1:1 맞춤 상담 모달
-    const consultModal        = document.getElementById('consultModal');
-    const consultForm         = document.getElementById('consultForm');
-    const consultDisease      = document.getElementById('consultDisease');
-    const consultOnsetDate    = document.getElementById('consultOnsetDate');
-    const consultRegion       = document.getElementById('consultRegion');
-    const consultContact      = document.getElementById('consultContact');
-    const btnCloseConsultModal= document.getElementById('btnCloseConsultModal');
-
-    // [모달 4] 준비 중 지역 모달
+    // [모달 3] 준비 중 지역 모달
     const preparingModal      = document.getElementById('preparingModal');
     const modalRegionName     = document.getElementById('modalRegionName');
     const btnCloseModal       = document.getElementById('btnCloseModal');
@@ -516,41 +506,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --------------------------------------------------------
-    // 보호자 1:1 맞춤 상담 신청 모달
-    // --------------------------------------------------------
-    if (btnOpenConsult && consultModal) {
-        btnOpenConsult.addEventListener('click', () => {
-            consultModal.showModal();
-        });
-    }
-
-    if (btnCloseConsultModal && consultModal) {
-        btnCloseConsultModal.addEventListener('click', () => consultModal.close());
-    }
-
-    if (consultForm && consultModal) {
-        consultForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const disease = consultDisease.value;
-            const onset   = consultOnsetDate.value;
-            const region  = consultRegion.value;
-            const contact = consultContact.value.trim();
-
-            if (!disease || !onset || !region || !contact) {
-                showToast('모든 필수 항목을 입력해 주세요.');
-                return;
-            }
-
-            showToast(`[신청 완료] ${region} ${disease} 환자 맞춤 재활 가이드 접수가 완료되었습니다.`);
-            consultModal.close();
-            consultForm.reset();
-        });
-    }
-
-    // --------------------------------------------------------
     // 공통 모달 닫기 이벤트 (X 버튼, 배경 클릭, ESC 키 지원)
     // --------------------------------------------------------
-    const dialogs = [newsDetailModal, articleDetailModal, consultModal, preparingModal];
+    const dialogs = [newsDetailModal, articleDetailModal, preparingModal];
 
     dialogs.forEach(dlg => {
         if (!dlg) return;
