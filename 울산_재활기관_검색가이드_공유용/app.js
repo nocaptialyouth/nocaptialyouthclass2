@@ -572,11 +572,131 @@
     elements.dialog.showModal();
   }
 
+  // 대화형 환자 맞춤 자가진단 매칭기 (Ulsan Tailored)
+  function initSelfChecker() {
+    const diseaseContainer = document.getElementById("checkDisease");
+    const periodContainer = document.getElementById("checkPeriod");
+    const mobilityContainer = document.getElementById("checkMobility");
+    const resultBox = document.getElementById("checkerResultBox");
+    const resBadge = document.getElementById("resBadge");
+    const resDesc = document.getElementById("resDesc");
+    const applyBtn = document.getElementById("checkerApplyBtn");
+
+    if (!diseaseContainer || !periodContainer || !mobilityContainer || !applyBtn) return;
+
+    let checkerState = {
+      disease: "stroke",
+      period: "30",
+      mobility: "bed"
+    };
+
+    function updateChecker() {
+      let badge = "";
+      let desc = "";
+      let targetPreset = "recovery";
+      let btnLabel = "울산 회복기 재활 지정기관(북울산병원) 보기 ↓";
+
+      const p = parseInt(checkerState.period, 10);
+
+      if (checkerState.disease === "stroke") {
+        if (p <= 90) {
+          badge = "보건복지부 지정 회복기 재활의료기관 (골든타임 90일 이내)";
+          desc = `환자분은 <strong>뇌졸중 발병/수술 후 ${p}일 이내</strong>로 신경학적 회복이 가장 빠른 '집중재활 골든타임'에 해당합니다. 울산 유일 보건복지부 지정 회복기 재활의료기관(북울산병원)에 입원하시면 하루 최대 4시간 1:1 맞춤 집중치료(물리, 작업, 언어, 로봇보행)와 건강보험 간호간병통합서비스 혜택을 온전히 받으실 수 있습니다.`;
+          targetPreset = "recovery";
+          btnLabel = "울산 회복기 재활 지정기관(북울산병원) 보기 ↓";
+        } else {
+          badge = "전문 재활요양병원 또는 낮병동 집중치료 권장";
+          desc = `발병 후 90일이 경과하여 법정 회복기 집중치료 입원 기한이 지났습니다. 하지만 지속적인 기능 유지와 합병증 예방을 위해 전문 재활의학과를 갖춘 요양병원(세민에스요양병원 등) 입원 치료 또는 통원 낮병동 치료가 적극 권장됩니다.`;
+          targetPreset = "care";
+          btnLabel = "울산 전문 재활요양병원 보기 ↓";
+        }
+      } else if (checkerState.disease === "spine") {
+        if (p <= 180) {
+          badge = "보건복지부 지정 회복기 재활의료기관 (척수손상 골든타임 180일 이내)";
+          desc = `척수손상 환자는 <strong>발병/수술 후 180일 이내</strong>에 입원해야 최대 2년간 회복기 집중재활 건강보험 혜택을 적용받습니다. 로봇보행치료 및 일상생활 동작(ADL) 훈련이 가능한 지정 병원을 선택하세요.`;
+          targetPreset = "recovery";
+          btnLabel = "회복기 재활의료기관 보기 ↓";
+        } else {
+          badge = "장기 재활요양병원 또는 척수 전문 외래 권장";
+          desc = `척수손상 발병 후 6개월(180일) 이상 경과한 경우 신경계 만성 관리 및 합병증(욕창, 관절구축) 관리가 체계적인 요양병원 또는 외래 진료를 추천합니다.`;
+          targetPreset = "care";
+          btnLabel = "울산 재활요양병원 보기 ↓";
+        }
+      } else if (checkerState.disease === "fracture") {
+        if (p <= 30) {
+          badge = "회복기 재활의료기관 골든타임 (고관절/대퇴골절 30일 이내)";
+          desc = `고관절 및 대퇴골절 수술 환자는 <strong>수술 후 30일 이내</strong>에 지정 병원에 입원해야 집중 재활 혜택(최대 30일)을 받으실 수 있습니다. 조기 보행 및 독립 보행력 회복을 위해 즉시 입원을 상담하세요.`;
+          targetPreset = "recovery";
+          btnLabel = "회복기 재활의료기관 보기 ↓";
+        } else {
+          badge = "일반 입원재활 또는 외래 도수재활 권장";
+          desc = `수술 후 30일이 초과한 경우 재활의학과 전문의가 상주하는 일반 병원 입원 또는 외래 통원 도수재활 치료를 진행하는 것이 경제적입니다.`;
+          targetPreset = "inpatient";
+          btnLabel = "입원 재활 가능 병원 보기 ↓";
+        }
+      } else if (checkerState.disease === "chronic") {
+        badge = "전문 재활요양병원 (24시간 의료진 케어)";
+        desc = `치매, 파킨슨, 와상 어르신의 경우 낙상 방지와 욕창 관리, 24시간 의료진 돌봄이 가능한 요양병원이 적합합니다. 산재 환자라면 산재 재활인증 병원(세민에스요양병원 등)을 확인하세요.`;
+        targetPreset = "care";
+        btnLabel = "울산 전문 요양병원 목록 보기 ↓";
+      } else if (checkerState.disease === "pain") {
+        badge = "재활의학과 전문의 의원 및 외래 클리닉";
+        desc = `독립 보행이 가능한 근골격계 통증, 디스크, 관절 수술 후 환자는 입원보다는 접근성이 좋은 재활의학과 의원(365재활의학과 등) 또는 한방병원에서 외래 도수·물리치료를 받는 것이 가장 효과적입니다.`;
+        targetPreset = "rehab";
+        btnLabel = "울산 재활의학과 전문의 병의원 보기 ↓";
+      }
+
+      if (resBadge) resBadge.textContent = badge;
+      if (resDesc) resDesc.innerHTML = desc;
+      if (applyBtn) {
+        applyBtn.textContent = btnLabel;
+        applyBtn.dataset.preset = targetPreset;
+      }
+    }
+
+    function setupGroup(container, stateKey) {
+      container.addEventListener("click", (e) => {
+        const btn = e.target.closest(".checker-btn");
+        if (!btn) return;
+        container.querySelectorAll(".checker-btn").forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        checkerState[stateKey] = btn.dataset.val;
+        updateChecker();
+      });
+    }
+
+    setupGroup(diseaseContainer, "disease");
+    setupGroup(periodContainer, "period");
+    setupGroup(mobilityContainer, "mobility");
+
+    applyBtn.addEventListener("click", () => {
+      const preset = applyBtn.dataset.preset || "recovery";
+      state.preset = preset;
+      state.query = "";
+      elements.search.value = "";
+      state.district = "";
+      elements.district.value = "";
+      state.type = "";
+      elements.type.value = "";
+
+      document.querySelectorAll("[data-preset]").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.preset === preset);
+      });
+
+      render();
+      document.getElementById("directorySection")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      showToast("추천 재활기관 목록을 표시했습니다.");
+    });
+
+    updateChecker();
+  }
+
   $("#openAbout")?.addEventListener("click", (event) => { event.preventDefault(); openLegal("about"); });
   $("#openTerms")?.addEventListener("click", (event) => { event.preventDefault(); openLegal("terms"); });
   $("#openPrivacy")?.addEventListener("click", (event) => { event.preventDefault(); openLegal("privacy"); });
   $("#openDisclaimer")?.addEventListener("click", (event) => { event.preventDefault(); openLegal("disclaimer"); });
 
+  initSelfChecker();
   populateFilters();
   render();
 })();
