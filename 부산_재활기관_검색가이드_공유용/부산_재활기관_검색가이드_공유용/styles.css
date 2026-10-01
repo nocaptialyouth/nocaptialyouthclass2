@@ -1033,3 +1033,412 @@ dialog::backdrop { background: rgba(4, 33, 33, .7); backdrop-filter: blur(4px); 
   }
 }
 
+/* ============================================================
+   추가 기능 1: 포털 상단 서브 네비게이션 바
+   ============================================================ */
+.portal-nav {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 8px 0;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.portal-nav::-webkit-scrollbar { display: none; }
+.portal-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.portal-nav-link:hover, .portal-nav-link.active {
+  background: var(--mint);
+  color: var(--teal-950);
+  border-color: var(--mint);
+}
+
+/* ============================================================
+   추가 기능 2: 회복기 재활 골든타임 D-Day 계산기 위젯
+   ============================================================ */
+.tool-section {
+  width: min(1180px, calc(100% - 40px));
+  margin: 40px auto 0;
+}
+.tool-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 36px;
+  box-shadow: var(--shadow);
+}
+.tool-header {
+  margin-bottom: 24px;
+}
+.tool-header .tool-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--mint-soft);
+  color: var(--teal-800);
+  border: 1px solid #bae6fd;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+.tool-header h2 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  color: var(--teal-950);
+  font-weight: 800;
+}
+.tool-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14.5px;
+}
+.calc-inputs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 16px;
+  align-items: flex-end;
+  background: var(--paper);
+  padding: 22px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+}
+.calc-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.calc-input-group label {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--teal-900);
+}
+.calc-input-group select,
+.calc-input-group input[type="date"] {
+  height: 48px;
+  padding: 0 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: 600;
+}
+.calc-btn-action {
+  height: 48px;
+  padding: 0 24px;
+  background: var(--teal-900);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 14.5px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.calc-btn-action:hover {
+  background: var(--teal-600);
+}
+.calc-result-display {
+  margin-top: 20px;
+  padding: 24px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1.5px solid #bae6fd;
+  border-radius: 16px;
+  display: none;
+}
+.calc-result-display.active {
+  display: block;
+}
+.calc-result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #cbd5e1;
+}
+.calc-dday-badge {
+  font-size: 22px;
+  font-weight: 900;
+  color: #0369a1;
+  background: #ffffff;
+  padding: 6px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.calc-dday-badge.urgent {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+.calc-summary-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #1e293b;
+  margin: 0 0 16px 0;
+}
+.calc-action-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.calc-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: var(--teal-900);
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+.calc-link-btn:hover { background: var(--teal-600); }
+
+/* ============================================================
+   추가 기능 4: 병원 전화 문의 체크리스트 & 1분 스크립트 생성기
+   ============================================================ */
+.checklist-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  background: var(--paper);
+  padding: 22px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+}
+.checklist-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.checklist-field label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--teal-900);
+}
+.checklist-field select,
+.checklist-field input {
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 13.5px;
+}
+.script-output-card {
+  margin-top: 20px;
+  background: #ffffff;
+  border: 2px solid var(--mint);
+  border-radius: 16px;
+  padding: 24px;
+}
+.script-output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.script-output-header h4 {
+  margin: 0;
+  color: var(--teal-950);
+  font-size: 16px;
+  font-weight: 800;
+}
+.copy-script-btn {
+  padding: 8px 16px;
+  background: var(--amber);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+}
+.copy-script-btn:hover { background: #e05520; }
+.script-text-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #334155;
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+/* ============================================================
+   추가 기능 3: 관심 병원 2~3곳 나란히 비교 모달
+   ============================================================ */
+.compare-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--teal-950);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  margin-top: 14px;
+  font-size: 14px;
+}
+.compare-bar-btn {
+  padding: 6px 16px;
+  background: var(--mint);
+  color: var(--teal-950);
+  border: none;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 13px;
+}
+.compare-table-wrapper {
+  overflow-x: auto;
+  margin: 16px 0;
+}
+.compare-grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.compare-grid-table th, .compare-grid-table td {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+.compare-grid-table th {
+  background: var(--paper);
+  color: var(--teal-950);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   추가 기능 2: 부산 16개 구·군 시맨틱 하이라이트 그리드
+   ============================================================ */
+.crawl-district-section {
+  width: min(1180px, calc(100% - 40px));
+  margin: 50px auto 0;
+}
+.crawl-district-header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+.crawl-district-header h2 {
+  font-size: 26px;
+  color: var(--teal-950);
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+.crawl-district-header p {
+  color: var(--muted);
+  font-size: 15px;
+  margin: 0;
+}
+.crawl-district-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.crawl-district-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+}
+.crawl-district-card h3 {
+  margin: 0 0 12px;
+  color: var(--teal-900);
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1.5px solid var(--mint-soft);
+  padding-bottom: 8px;
+}
+.crawl-district-card ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #334155;
+}
+.crawl-district-card li {
+  margin-bottom: 8px;
+}
+.crawl-district-card li strong {
+  color: var(--teal-950);
+}
+
+/* 정렬 기준 툴팁 안내문 */
+.sort-guide-notice {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* 제보 버튼 및 확인 배지 */
+.verify-freshness-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #475569;
+}
+.report-inline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #dc2626;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.report-inline-btn:hover {
+  background: #fee2e2;
+  border-color: #f87171;
+}
+
+@media (max-width: 768px) {
+  .calc-inputs-grid {
+    grid-template-columns: 1fr;
+  }
+  .tool-card {
+    padding: 24px;
+  }
+}
+
+
