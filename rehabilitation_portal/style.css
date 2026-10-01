@@ -1093,47 +1093,82 @@ a {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
 }
 .news-card {
     display: flex;
-    align-items: flex-start;
-    gap: 14px;
+    flex-direction: column;
+    gap: 8px;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    padding: 14px 18px;
+    padding: 13px 15px;
+    cursor: pointer;
+    position: relative;
     transition: var(--transition);
     animation: newsSlideIn 0.4s ease both;
+    width: 100%;
+    box-sizing: border-box;
 }
 .news-card:hover {
     border-color: var(--primary);
     box-shadow: var(--shadow-md);
-    transform: translateX(3px);
+    transform: translateY(-2px);
 }
 @keyframes newsSlideIn {
-    from { opacity: 0; transform: translateX(-10px); }
-    to { opacity: 1; transform: translateX(0); }
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.news-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+}
+.news-card-tags {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.news-more-btn {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--primary);
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+.news-card:hover .news-more-btn {
+    transform: translateX(3px);
 }
 .news-badge {
     flex-shrink: 0;
-    padding: 3px 9px;
+    padding: 3px 8px;
     border-radius: 999px;
     font-size: 11px;
     font-weight: 800;
     white-space: nowrap;
-    margin-top: 2px;
 }
 .news-badge.open    { background: #d1fae5; color: #065f46; }
 .news-badge.update  { background: #dbeafe; color: #1e40af; }
 .news-badge.notice  { background: #fef3c7; color: #92400e; }
 .news-badge.warning { background: #fee2e2; color: #991b1b; }
-.news-body { flex: 1; min-width: 0; }
+.news-body {
+    width: 100%;
+    min-width: 0;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
 .news-title {
     font-size: 13.5px;
     font-weight: 700;
     color: var(--text-main);
     margin-bottom: 4px;
-    line-height: 1.4;
+    line-height: 1.45;
+    word-break: keep-all;
+    overflow-wrap: break-word;
 }
 .news-desc {
     font-size: 12px;
@@ -1143,6 +1178,8 @@ a {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    word-break: keep-all;
+    overflow-wrap: break-word;
 }
 .news-date {
     flex-shrink: 0;
@@ -1525,25 +1562,7 @@ body.dark-theme .column-btn {
     color: var(--primary);
     font-weight: 700;
 }
-.news-card {
-    cursor: pointer;
-    position: relative;
-}
-.news-card::after {
-    content: "상세보기 >";
-    font-size: 11px;
-    font-weight: 800;
-    color: var(--primary);
-    margin-left: auto;
-    align-self: center;
-    white-space: nowrap;
-    opacity: 0.75;
-    transition: var(--transition);
-}
-.news-card:hover::after {
-    opacity: 1;
-    transform: translateX(3px);
-}
+/* .news-card::after removed to fix mobile text flex-shrink bug */
 .news-region-tag {
     font-size: 10.5px;
     font-weight: 700;
@@ -1816,3 +1835,475 @@ body.dark-theme .column-btn {
 }
 
 
+
+
+/* ============================================================
+   [5대 전문가 신규 기능 및 권역별 스마트 탭 스타일]
+   ============================================================ */
+
+/* 1. 권역별 스마트 탭 & 특화 인프라 필터 */
+.zone-filter-bar {
+    margin: 18px 0 10px;
+    width: 100%;
+}
+.filter-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.filter-group-label {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.zone-chips-scroll,
+.filter-chips-scroll {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 2px 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+.zone-chips-scroll::-webkit-scrollbar,
+.filter-chips-scroll::-webkit-scrollbar {
+    display: none;
+}
+.zone-chip {
+    flex-shrink: 0;
+    padding: 8px 15px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: var(--bg-card);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.zone-chip:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+.zone-chip.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 3px 10px rgba(13, 148, 136, 0.35);
+}
+.zone-chip .badge-count {
+    background: rgba(255,255,255,0.25);
+    padding: 1px 6px;
+    border-radius: 999px;
+    font-size: 11px;
+}
+.zone-chip:not(.active) .badge-count {
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+}
+
+/* 2. [전문가 기능 1] 3초 재활 골든타임 & 간병비 절감 계산기 */
+.calc-section {
+    margin: 28px 0 40px;
+    width: 100%;
+}
+.calc-card {
+    background: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 100%);
+    border: 1.5px solid rgba(13, 148, 136, 0.25);
+    border-radius: var(--radius-md);
+    padding: 26px 28px;
+    box-shadow: 0 4px 20px rgba(13, 148, 136, 0.08);
+}
+body.dark-theme .calc-card {
+    background: linear-gradient(135deg, #0e1c2e 0%, #152238 100%);
+    border-color: rgba(20, 184, 166, 0.3);
+}
+.calc-header {
+    margin-bottom: 20px;
+}
+.calc-badge {
+    display: inline-block;
+    background: #0d9488;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+    letter-spacing: 0.03em;
+}
+.calc-header h2 {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+}
+.calc-desc {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+.calc-form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+@media (max-width: 768px) {
+    .calc-form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+.calc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.calc-field label {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--text-main);
+}
+.calc-select {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-card);
+    color: var(--text-main);
+    font-size: 13.5px;
+    font-weight: 600;
+    outline: none;
+    transition: var(--transition);
+    cursor: pointer;
+}
+.calc-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+.calc-result-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 20px 22px;
+    box-shadow: var(--shadow-sm);
+}
+.calc-result-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 20px;
+    align-items: center;
+}
+@media (max-width: 720px) {
+    .calc-result-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+.calc-result-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.calc-result-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-muted);
+}
+.calc-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15.5px;
+    font-weight: 900;
+}
+.calc-status-badge.safe { color: #059669; }
+.calc-status-badge.warning { color: #d97706; }
+.calc-status-badge.urgent { color: #dc2626; }
+.calc-money-saved {
+    font-size: 21px;
+    font-weight: 900;
+    color: #0d9488;
+}
+.calc-tip-text {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+}
+
+/* 3. [전문가 기능 2] 정부·공공 재활 지원 원스톱 핫라인 */
+.hotline-section {
+    margin: 40px 0 20px;
+    width: 100%;
+}
+.hotline-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 24px 26px;
+    box-shadow: var(--shadow-sm);
+}
+.hotline-header {
+    margin-bottom: 18px;
+}
+.hotline-pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    color: #1d4ed8;
+    background: #dbeafe;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 6px;
+}
+body.dark-theme .hotline-pill {
+    background: #1e3a8a;
+    color: #93c5fd;
+}
+.hotline-header h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 4px;
+}
+.hotline-header p {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+.hotline-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+@media (max-width: 900px) {
+    .hotline-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 520px) {
+    .hotline-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.hotline-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+.hotline-card:hover {
+    border-color: var(--primary);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+}
+.hotline-info {
+    display: flex;
+    flex-direction: column;
+}
+.hotline-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+.hotline-tel {
+    font-size: 17px;
+    font-weight: 900;
+    color: var(--primary);
+    letter-spacing: -0.01em;
+}
+.hotline-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+.hotline-dial-btn {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 5px 9px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+/* 4. [전문가 기능 3] 병원 전화상담 스마트 체크리스트 */
+.checklist-section {
+    margin: 40px 0 20px;
+    width: 100%;
+}
+.checklist-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 26px 28px;
+    box-shadow: var(--shadow-sm);
+}
+.checklist-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    color: #0d9488;
+    background: #ccfbf1;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 6px;
+}
+.checklist-header h3 {
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+.checklist-header p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+.checklist-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+.check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 13.5px;
+    color: var(--text-main);
+    line-height: 1.5;
+}
+.check-item:hover {
+    border-color: var(--primary);
+    background: var(--bg-card);
+}
+.check-item input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--primary);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.checklist-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* 5. [전문가 기능 4] 보호자 최다 빈도 자주 묻는 질문 FAQ */
+.faq-section {
+    margin: 50px 0 20px;
+    width: 100%;
+}
+.faq-accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+}
+.faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: var(--transition);
+}
+.faq-item:hover {
+    border-color: var(--primary);
+}
+.faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 18px 20px;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.faq-question:hover {
+    color: var(--primary);
+}
+.faq-question .faq-q-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.faq-q-badge {
+    background: #0d9488;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 900;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.faq-chevron {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+.faq-item.open .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--primary);
+}
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    background: var(--bg-secondary);
+    padding: 0 20px;
+    border-top: 1px solid transparent;
+}
+.faq-item.open .faq-answer {
+    max-height: 350px;
+    padding: 16px 20px 20px;
+    border-top-color: var(--border);
+}
+.faq-answer p {
+    font-size: 13.5px;
+    color: var(--text-main);
+    line-height: 1.65;
+    margin: 0;
+    word-break: keep-all;
+}

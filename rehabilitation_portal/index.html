@@ -151,14 +151,29 @@
                     <h1 class="hero-title">내 가족을 위한<br><em>재활·요양기관을 한눈에.</em></h1>
                     <p class="hero-lead">어려운 재활 병원 찾기, 이제 거주하시는 지역을 선택하여 시작해 보세요.<br>보건복지부 지정 회복기 기관, 간호간병통합 병동 정보를 보호자의 시선에서 쉽게 알려 드립니다.</p>
 
-                    <!-- 빠른 조건별 퀵 필터 버튼 그룹 -->
-                    <div class="quick-filter-row" aria-label="병원 조건별 빠른 필터">
-                        <span class="quick-filter-label">조건 필터:</span>
-                        <button type="button" class="filter-chip active" data-filter="all">🌟 전체보기</button>
-                        <button type="button" class="filter-chip" data-filter="회복기">🏥 복지부 회복기재활</button>
+                    <!-- 1. 5대 대권역 스마트 탭 -->
+                    <div class="zone-filter-bar" aria-label="5대 권역 바로가기">
+                        <div class="filter-group-header">
+                            <span class="filter-group-label">🗺️ 5대 권역 선택:</span>
+                        </div>
+                        <div class="zone-chips-scroll" id="zoneChipsScroll">
+                            <button type="button" class="zone-chip active" data-zone="all">🌟 전국 전체 <span class="badge-count">15</span></button>
+                            <button type="button" class="zone-chip" data-zone="sudogwon">🏙️ 수도권 <span class="badge-count">3</span></button>
+                            <button type="button" class="zone-chip" data-zone="yeongnam">🌊 영남권 <span class="badge-count">5</span></button>
+                            <button type="button" class="zone-chip" data-zone="chungcheong">🌿 충청·세종 <span class="badge-count">3</span></button>
+                            <button type="button" class="zone-chip" data-zone="honam">🌾 호남권 <span class="badge-count">2</span></button>
+                            <button type="button" class="zone-chip" data-zone="gangwonjeju">⛰️ 강원·제주 <span class="badge-count">2</span></button>
+                        </div>
+                    </div>
+
+                    <!-- 2. 특화 시설 필터 칩 -->
+                    <div class="quick-filter-row" aria-label="병원 특화 시설 필터">
+                        <span class="quick-filter-label">🏥 특화 시설:</span>
+                        <button type="button" class="filter-chip active" data-filter="all">전체 시설</button>
+                        <button type="button" class="filter-chip" data-filter="회복기">🏥 복지부 회복기 거점</button>
                         <button type="button" class="filter-chip" data-filter="간호간병">👩‍⚕️ 간호간병통합</button>
-                        <button type="button" class="filter-chip" data-filter="로봇">🤖 로봇보행재활</button>
-                        <button type="button" class="filter-chip" data-filter="산재">🛡️ 산재·자보인증</button>
+                        <button type="button" class="filter-chip" data-filter="로봇">🤖 보행로봇 재활센터</button>
+                        <button type="button" class="filter-chip" data-filter="산재">🛡️ 국립·산재거점</button>
                     </div>
 
                     <!-- Search Bar for Region -->
@@ -205,6 +220,48 @@
             </aside>
 
         </div>
+
+        <!-- [전문가 기능 1] 3초 재활 골든타임 & 간병비 절감 계산기 (인터랙티브 자가진단) -->
+        <section class="calc-section" id="calcSection" aria-label="3초 재활 골든타임 및 간병비 절감 계산기">
+            <div class="calc-card">
+                <div class="calc-header">
+                    <span class="calc-badge">⚡ 3초 스마트 자가진단</span>
+                    <h2>⏱️ 재활 골든타임 &amp; 간병비 절감 계산기</h2>
+                    <p class="calc-desc">환자의 발병 시기와 질환을 선택하시면 복지부 회복기재활 입원 적기 여부와 절감되는 예상 간병비를 즉시 계산해 드립니다.</p>
+                </div>
+                <div class="calc-form-grid">
+                    <div class="calc-field">
+                        <label for="calcDisease">1. 질환 구분</label>
+                        <select id="calcDisease" class="calc-select" aria-label="질환 선택">
+                            <option value="stroke" selected>🧠 뇌졸중 (뇌경색·뇌출혈)</option>
+                            <option value="spinal">🦴 척수 손상 (외상·마비)</option>
+                            <option value="fracture">🦵 대퇴·고관절 골절 (수술 후)</option>
+                            <option value="multi">🩹 다발 골절 및 하지 절단</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label for="calcDays">2. 발병 / 수술 후 경과 일수</label>
+                        <select id="calcDays" class="calc-select" aria-label="경과 일수 선택">
+                            <option value="20">발병 후 30일 이내 (급성기 병원 치료 중)</option>
+                            <option value="50" selected>발병 후 31일 ~ 60일 (전원 준비기)</option>
+                            <option value="75">발병 후 61일 ~ 90일 (골든타임 임박)</option>
+                            <option value="110">발병 후 90일 초과</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label for="calcCareType">3. 고려 중인 간병 방식</label>
+                        <select id="calcCareType" class="calc-select" aria-label="간병 방식 선택">
+                            <option value="private" selected>개인 사설 간병인 (월 약 420만 원)</option>
+                            <option value="family">가족 직접 간병 (생업 병행 곤란)</option>
+                            <option value="group">일반 요양병원 공동 간병 (월 약 200만 원)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="calc-result-box" id="calcResultBox">
+                    <!-- app.js가 동적으로 계산 결과 렌더링 -->
+                </div>
+            </div>
+        </section>
 
         <!-- Main Workspace Area -->
         <main class="main-content">
@@ -335,6 +392,51 @@
             </section>
         </main>
 
+        <!-- [전문가 기능 2] 정부·공공 재활 지원 원스톱 핫라인 -->
+        <section class="hotline-section" aria-label="정부 및 공공 재활 지원 원스톱 핫라인">
+            <div class="hotline-container">
+                <div class="hotline-header">
+                    <span class="hotline-pill">🏛️ 대한민국 정부·공공기관 공식 콜센터</span>
+                    <h3>📞 국가 공공 재활·간병비·장기요양 원터치 직통 상담</h3>
+                    <p>긴급의료비 지원, 산재 재활 승인, 간호간병 본인부담금 기준을 정부 공식 상담원에게 바로 문의하세요.</p>
+                </div>
+                <div class="hotline-grid">
+                    <a href="tel:129" class="hotline-card" aria-label="보건복지상담센터 129 전화걸기">
+                        <div class="hotline-info">
+                            <span class="hotline-name">보건복지상담센터</span>
+                            <strong class="hotline-tel">129</strong>
+                            <span class="hotline-sub">긴급의료비 · 복지혜택</span>
+                        </div>
+                        <span class="hotline-dial-btn">통화연결 ↗</span>
+                    </a>
+                    <a href="tel:15771000" class="hotline-card" aria-label="국민건강보험공단 1577-1000 전화걸기">
+                        <div class="hotline-info">
+                            <span class="hotline-name">국민건강보험공단</span>
+                            <strong class="hotline-tel">1577-1000</strong>
+                            <span class="hotline-sub">간호간병통합 · 장기요양등급</span>
+                        </div>
+                        <span class="hotline-dial-btn">통화연결 ↗</span>
+                    </a>
+                    <a href="tel:16442000" class="hotline-card" aria-label="건강보험심사평가원 1644-2000 전화걸기">
+                        <div class="hotline-info">
+                            <span class="hotline-name">건강보험심사평가원</span>
+                            <strong class="hotline-tel">1644-2000</strong>
+                            <span class="hotline-sub">회복기지정 · 비급여진료비</span>
+                        </div>
+                        <span class="hotline-dial-btn">통화연결 ↗</span>
+                    </a>
+                    <a href="tel:15880075" class="hotline-card" aria-label="근로복지공단 1588-0075 전화걸기">
+                        <div class="hotline-info">
+                            <span class="hotline-name">근로복지공단 (산재)</span>
+                            <strong class="hotline-tel">1588-0075</strong>
+                            <span class="hotline-sub">산재재활수가 · 집중치료 승인</span>
+                        </div>
+                        <span class="hotline-dial-btn">통화연결 ↗</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- [새로 추가] 보호자 필독 재활 전문 칼럼 허브 (구글 애드센스 E-E-A-T 승인 및 SEO 핵심 섹션) -->
         <section class="expert-columns-section" id="expertColumnsSection" aria-label="보호자 필독 재활 전문 칼럼">
             <div class="section-title-wrapper">
@@ -390,6 +492,104 @@
                         <li><strong>다발 골절 / 하지 절단:</strong> 수술 후 <strong>60일 이내</strong> 입원 필수 (치료 기간 최대 60일)</li>
                     </ul>
                 </article>
+            </div>
+
+            <!-- [전문가 기능 3] 보호자 병원 전화상담 체크리스트 생성기 -->
+            <div class="checklist-section" id="checklistSection" aria-label="보호자 병원 전화상담 체크리스트">
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <span class="checklist-tag">📝 GUARDIAN CALL MEMO</span>
+                        <h3>📞 병원 전화 문의 시 꼭 물어봐야 할 6가지 체크리스트</h3>
+                        <p>재활병원 입원 상담 전화 시 놓치기 쉬운 필수 질문입니다. 질문 항목을 선택하고 '메모 복사' 버튼을 눌러 단톡방이나 메모장에 붙여넣어 활용하세요.</p>
+                    </div>
+                    <div class="checklist-items" id="checklistItems">
+                        <label class="check-item"><input type="checkbox" checked value="보건복지부 지정 제3기 회복기 재활의료기관 여부 (일 최대 4시간 1:1 집중치료 가능 여부)"><span><strong>복지부 지정 회복기 여부:</strong> 일 최대 4시간 1:1 집중재활치료 건강보험 적용 여부</span></label>
+                        <label class="check-item"><input type="checkbox" checked value="간호간병통합서비스 재활병동 운영 및 즉시 입원 가능한 잔여 병상 유무"><span><strong>간호간병통합병동 가동 여부:</strong> 사설 간병인 없이 병원 간호팀 24시간 전담 및 빈 병상 여부</span></label>
+                        <label class="check-item"><input type="checkbox" checked value="환자 발병일/수술일 기준 골든타임 이내 입원 심사 통과 가능 여부"><span><strong>입원 골든타임 심사 여부:</strong> 뇌졸중 발병 90일(골절 30일) 이내 입원 요건 부합 여부</span></label>
+                        <label class="check-item"><input type="checkbox" checked value="외골격 보행로봇(로코맷/엔젤렉스 등) 및 수치료 등 특수 재활기기 구비 여부"><span><strong>특수 재활장비 구비 여부:</strong> 로봇보행기 및 언어/삼킴(연하) 재활치료실 완비 여부</span></label>
+                        <label class="check-item"><input type="checkbox" checked value="월 예상 진료비 및 비급여 항목(도수치료, 로봇치료 등) 상세 견적"><span><strong>월 총비용 및 비급여 견적:</strong> 건강보험 본인부담금과 비급여 치료비용 사전 확인</span></label>
+                        <label class="check-item"><input type="checkbox" checked value="퇴원 지원팀 운영 및 자택 주거환경 개선(손잡이 설치 등) 연계 서비스 유무"><span><strong>퇴원 지원 및 지역사회 연계:</strong> 퇴원 전 가정방문 평가 및 맞춤 복지용구 연계 여부</span></label>
+                    </div>
+                    <div class="checklist-actions">
+                        <button type="button" id="btnCopyChecklist" class="btn btn-primary">📋 질문 리스트 클립보드 복사</button>
+                        <button type="button" id="btnShareKakaoChecklist" class="btn btn-secondary">💬 가족 단톡방 공유용 복사</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- [전문가 기능 4] 보호자 최다 빈도 자주 묻는 질문 FAQ 아코디언 허브 -->
+        <section class="faq-section" id="faqSection" aria-label="보호자 자주 묻는 질문 FAQ">
+            <div class="section-title-wrapper">
+                <div class="section-tag-badge">❓ FREQUENTLY ASKED QUESTIONS</div>
+                <h2>💬 보호자 최다 빈도 자주 묻는 질문 (FAQ)</h2>
+                <p class="section-lead">환자 전원 및 입원 과정에서 보호자분들이 가장 많이 질문하시는 핵심 5문 5답입니다.</p>
+            </div>
+            <div class="faq-accordion-list" id="faqAccordionList">
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">
+                        <div class="faq-q-text">
+                            <span class="faq-q-badge">Q1</span>
+                            <span>뇌졸중 발병 후 90일이 지나면 회복기 재활병원에 입원할 수 없나요?</span>
+                        </div>
+                        <span class="faq-chevron">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>발병 90일 규정은 건강보험 '집중재활 수가(하루 최대 4시간 1:1 맞춤 재활)'가 전액 지원되는 법정 골든타임 기준입니다.</strong> 90일이 경과하더라도 환자 상태에 따라 일반 재활병동이나 만성 요양병원으로 입원은 가능하지만, 하루 받을 수 있는 물리·도수치료 시간에 제한이 생길 수 있으므로 가능한 발병 90일 이내에 회복기 의료기관 전원을 서두르시는 것이 가장 유리합니다.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">
+                        <div class="faq-q-text">
+                            <span class="faq-q-badge">Q2</span>
+                            <span>간호간병통합서비스 병동은 보호자가 아예 들어갈 수 없나요?</span>
+                        </div>
+                        <span class="faq-chevron">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>환자의 감염 예방과 전문 간호 체계 유지를 위해 24시간 상주 간병은 제한됩니다.</strong> 하지만 정해진 면회 시간(통상 일 1~2회) 동안 가족 면회가 가능하며, 환자의 입원 초기 적응 기간이나 의료진이 보호자의 교육·상주가 필요하다고 판단하는 특수 상황에는 의료진의 승인 하에 임시 상주가 허용되기도 합니다.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">
+                        <div class="faq-q-text">
+                            <span class="faq-q-badge">Q3</span>
+                            <span>보건복지부 지정 회복기 재활병원과 일반 요양병원의 월 비용 차이는?</span>
+                        </div>
+                        <span class="faq-chevron">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>회복기 재활병원에서 간호간병통합병동을 이용할 경우 간병비 포함 월 100만~150만 원 선입니다.</strong> 반면 일반 병원에서 개인 사설 간병인을 고용하면 월 400만~450만 원의 큰 비용이 발생합니다. 일반 요양병원은 공동 간병(1:4~1:6)을 통해 월 150만~250만 원 선이지만 1:1 집중 재활치료 시간은 회복기 병원에 비해 짧습니다.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">
+                        <div class="faq-q-text">
+                            <span class="faq-q-badge">Q4</span>
+                            <span>외골격 보행로봇(로코맷, 엔젤렉스 등) 재활치료는 실손의료보험(실비) 청구가 되나요?</span>
+                        </div>
+                        <span class="faq-chevron">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>로봇보행 치료는 법정 비급여 항목으로 분류되며 가입하신 실손보험의 약관 세대(1세대~4세대) 및 질환 코드(뇌혈관질환 I60~I69 등)에 따라 보장 여부가 달라집니다.</strong> 따라서 입원 전 병원 원무과 상담팀에서 '비급여 진료비 코드명'을 안내받은 후, 가입하신 보험사 고객센터에 사전 보장 여부를 직접 확인하시는 것을 추천합니다.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false">
+                        <div class="faq-q-text">
+                            <span class="faq-q-badge">Q5</span>
+                            <span>대학병원 퇴원 전 재활병원 전원을 위해 미리 준비해야 할 서류는?</span>
+                        </div>
+                        <span class="faq-chevron">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>①진료의뢰서(회복기 재활 표기), ②입원 기간 전체 의무기록사본(경과기록지, 퇴원요약지, 간호초진기록지), ③Brain CT/MRI 영상 판독결과지, ④기능평가 결과지(K-MBI 일상생활수행도, MMSE 인지검사 등), ⑤영상 자료 CD 복사본, ⑥현재 복용 중인 약 처방전</strong>을 퇴원 최소 3~5일 전 주치의나 병동 간호사실에 요청해 발급받으셔야 심사가 지체되지 않습니다.</p>
+                    </div>
+                </div>
             </div>
         </section>
 

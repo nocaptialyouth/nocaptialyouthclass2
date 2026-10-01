@@ -1,16 +1,16 @@
 /**
  * portal-data.js
- * 포털 마스터 데이터 파일 (v2.5)
+ * 포털 마스터 데이터 파일 (v2.6)
  * 
- * ✅ 최신 소식, 전문 칼럼, 15개 지역 연동 데이터 통합 관리
+ * ✅ 전국 15개 지역 연동 데이터 및 5대 대권역 / 특성화 필터 키워드 전면 보강
  * - news 배열 중 가장 최신 날짜가 홈페이지 상단 '데이터 기준일'로 자동 연동됩니다.
  * - 소식 카드를 클릭하면 상세 안내 모달이 열립니다.
  */
 window.PORTAL_DATA = {
 
   meta: {
-    lastUpdated: "2026-09-30",
-    version: "2.5",
+    lastUpdated: "2026-10-01",
+    version: "2.6",
     totalRegions: 15,
     dataSource: "보건복지부, 건강보험심사평가원(HIRA), 근로복지공단 공공 데이터 실시간 교차 검증"
   },
@@ -34,7 +34,7 @@ window.PORTAL_DATA = {
         <ul style="margin: 12px 0 16px 20px; line-height: 1.7;">
           <li><strong>수도권 (서울·경기·인천):</strong> 국립재활원, 서울재활병원, 명지춘혜병원 등 주요 회복기 병동 운영 정보 최신화</li>
           <li><strong>영남권 (부산·대구·울산·경남·경북):</strong> 동아대대신병원, 워커힐재활병원, 맥켄지일신기독병원 등 통합병동 가동 현황 반영</li>
-          <li><strong>충청·호남·제주권:</strong> 호남권역재활병원, 드림솔병원, 대전충남권역재활병원 등 간호간병 병상수 확인 완료</li>
+          <li><strong>충청·호남·강원·제주권:</strong> 대전충남권역재활병원, 드림솔병원, 호남권역재활병원, 제주권역재활병원 등 간호간병 병상수 확인 완료</li>
         </ul>
         <div style="background:#f0fdfa; padding:14px; border-radius:8px; border-left:4px solid #0d9488; font-size:14px;">
           💡 <strong>보호자 이용 팁:</strong> 간호간병통합병동은 낙상 위험도 및 일상생활동작(MBI) 평가 결과에 따라 입원 우선순위가 결정되므로, 전원 전 진료의뢰서와 의무기록사본을 지참하여 사전 상담하시기 바랍니다.
@@ -243,171 +243,201 @@ window.PORTAL_DATA = {
   ],
 
   // ------------------------------------------------------------
-  // 15개 지역 연동 데이터
+  // 15개 지역 연동 데이터 (대권역 및 특성화 태그 완비)
   // ------------------------------------------------------------
   regions: [
     {
-      id: "daegu",
-      name: "대구광역시",
-      url: "https://daegu.koreapmr.com/",
-      status: "active",
-      count: 78,
-      searchKeys: "대구 대구광역시 daegu 수성구 달서구 중구 동구 서구 남구 북구 달성군 군위군 회복기 간호간병 로봇재활",
-      tags: ["복지부 회복기 지정병원 포함", "간호간병통합 운영"],
-      desc: "대구 내 9개 구·군 재활의학과 전문의 상주 병원 및 보건복지부 지정 회복기 재활병원 데이터가 연동되어 있습니다.",
-      highlight: "회복기 다수"
-    },
-    {
-      id: "busan",
-      name: "부산광역시",
-      url: "https://busan.koreapmr.com/",
-      status: "active",
-      count: 146,
-      searchKeys: "부산 부산광역시 busan 해운대 부산진구 동래구 금정구 남구 북구 사하구 사상구 연제구 수영구 강서구 중구 서구 영도구 동구 기장군 동아대대신병원 워커힐",
-      tags: ["교차검토 완료 데이터", "동아대대신병원 반영"],
-      desc: "부산 권역별 146개 전문 재활병원 및 집중 1:1 재활치료 가능 회복기·요양병원 정보를 빠르게 검색할 수 있습니다.",
-      highlight: "최신 갱신"
-    },
-    {
-      id: "ulsan",
-      name: "울산광역시",
-      url: "https://ulsan.koreapmr.com/",
-      status: "active",
-      count: 52,
-      searchKeys: "울산 울산광역시 ulsan 남구 중구 북구 동구 울주군",
-      tags: ["보호자 추천 가이드", "산재/자보 인증기관"],
-      desc: "울산 관내 재활의학과 전문의 상주 병원 및 산재보험/자동차보험 집중 치료실 보유 여부를 바로 확인하실 수 있습니다.",
-      highlight: ""
-    },
-    {
-      id: "gyeongnam",
-      name: "경상남도",
-      url: "https://gyeongnam.koreapmr.com/",
-      status: "active",
-      count: 95,
-      searchKeys: "경남 경상남도 gyeongnam 창원 김해 양산 진주 통영 사천 밀양 거제 양산부산대병원",
-      tags: ["김해·양산 상세 연동", "로봇보행 치료실"],
-      desc: "창원, 김해, 양산 등 경상남도 시·군 지역 내 최적의 재활 치료실 및 대학병원 전원 협력 기관 검색.",
-      highlight: ""
-    },
-    {
       id: "seoul",
       name: "서울특별시",
+      zone: "sudogwon",
+      zoneName: "수도권",
       url: "https://seoul.koreapmr.com/",
       status: "active",
       count: 120,
-      searchKeys: "서울 서울특별시 seoul 강남 송파 서초 강동 종로 중구 용산 성동 광진 동대문 중랑 성북 강북 도봉 노원 은평 서대문 마포 양천 강서 구로 금천 영등포 동작 관악 국립재활원 명지춘혜 서울재활",
-      tags: ["복지부 제3기 회복기 집중", "간호간병통합 우수"],
+      searchKeys: "서울 서울특별시 seoul 수도권 회복기 회복기재활 간호간병 로봇재활 로봇 산재자보 산재 국립재활원 명지춘혜 서울재활",
+      tags: ["복지부 제3기 회복기 7개소", "간호간병통합 운영", "로봇보행 치료실", "산재 인증기관"],
       desc: "서울 25개 자치구 국립재활원, 명지춘혜병원 등 보건복지부 지정 회복기 재활병원 및 뇌졸중 집중 치료 기관 총망라.",
       highlight: "회복기 우수"
     },
     {
       id: "gyeonggi",
       name: "경기도",
+      zone: "sudogwon",
+      zoneName: "수도권",
       url: "https://gyeonggido.koreapmr.com/",
       status: "active",
       count: 200,
-      searchKeys: "경기 경기도 gyeonggi 수원 고양 성남 용인 부천 안산 남양주 안양 화성 평택 의정부 파주 김포 광명 군포 광주 이천 양주 안성 구리 의왕 포천 하남",
-      tags: ["도내 200개 이상 수록", "권역별 전원 네트워크"],
+      searchKeys: "경기 경기도 gyeonggi 수도권 회복기 회복기재활 간호간병 로봇재활 로봇 산재자보 산재 수원 고양 성남 용인 부천 안산 남양주 안양 화성 평택",
+      tags: ["복지부 지정 회복기 10개소", "간호간병통합 가동", "로봇보행 치료실", "도내 200개 이상"],
       desc: "수원, 성남, 고양, 용인 등 경기 29개 시·군 내 간호간병통합서비스 및 복지부 지정 회복기 기관 상세 안내.",
       highlight: "최대 수록"
     },
     {
       id: "incheon",
       name: "인천광역시",
+      zone: "sudogwon",
+      zoneName: "수도권",
       url: "https://incheon.koreapmr.com/",
       status: "active",
       count: 63,
-      searchKeys: "인천 인천광역시 incheon 부평 남동 연수 미추홀 계양 서구 중구 동구 강화 옹진",
-      tags: ["복지부 지정 회복기 포함", "통합병동 가동"],
+      searchKeys: "인천 인천광역시 incheon 수도권 회복기 회복기재활 간호간병 산재자보 산재 부평 남동 연수 미추홀 계양 서구",
+      tags: ["복지부 지정 회복기 2개소", "간호간병통합 운영", "산재 인증 전문기관"],
       desc: "부평, 남동, 연수 등 인천 10개 군·구 내 보건복지부 지정 회복기 기관 및 산재 인증 전문 재활시설 검색.",
       highlight: ""
     },
     {
-      id: "gangwon",
-      name: "강원특별자치도",
-      url: "https://gangwonstate.koreapmr.com/",
+      id: "busan",
+      name: "부산광역시",
+      zone: "yeongnam",
+      zoneName: "영남권",
+      url: "https://busan.koreapmr.com/",
       status: "active",
-      count: 45,
-      searchKeys: "강원 강원도 강원특별자치도 gangwon 춘천 원주 강릉 동해 태백 속초 삼척 강원대병원 원주세브란스",
-      tags: ["복지부 지정 권역재활", "강원 영서·영동 연계"],
-      desc: "춘천, 원주, 강릉 등 강원특별자치도 18개 시·군 내 최적의 1:1 집중 재활 치료실 및 요양병원 정보.",
+      count: 146,
+      searchKeys: "부산 부산광역시 busan 영남권 회복기 회복기재활 간호간병 로봇재활 로봇 산재자보 산재 해운대 부산진구 동래구 동아대대신 워커힐 맥켄지",
+      tags: ["복지부 지정 회복기 6개소", "간호간병통합 운영", "로봇보행 치료실", "동아대대신병원 반영"],
+      desc: "부산 권역별 146개 전문 재활병원 및 집중 1:1 재활치료 가능 회복기·요양병원 정보를 빠르게 검색할 수 있습니다.",
+      highlight: "회복기 우수"
+    },
+    {
+      id: "daegu",
+      name: "대구광역시",
+      zone: "yeongnam",
+      zoneName: "영남권",
+      url: "https://daegu.koreapmr.com/",
+      status: "active",
+      count: 78,
+      searchKeys: "대구 대구광역시 daegu 영남권 회복기 회복기재활 간호간병 로봇재활 로봇 산재자보 산재 수성구 달서구 중구 동구 남산병원",
+      tags: ["복지부 지정 회복기 5개소", "간호간병통합 가동", "로봇보행 치료실", "산재 재활인증"],
+      desc: "대구 내 9개 구·군 재활의학과 전문의 상주 병원 및 보건복지부 지정 회복기 재활병원 데이터가 연동되어 있습니다.",
+      highlight: "회복기 다수"
+    },
+    {
+      id: "ulsan",
+      name: "울산광역시",
+      zone: "yeongnam",
+      zoneName: "영남권",
+      url: "https://ulsan.koreapmr.com/",
+      status: "active",
+      count: 52,
+      searchKeys: "울산 울산광역시 ulsan 영남권 회복기 회복기재활 간호간병 산재자보 산재 남구 중구 북구 울주군 근로복지공단울산병원",
+      tags: ["근로복지공단 산재인증", "전문재활 간호간병", "산재·자보 인증본원"],
+      desc: "울산 관내 재활의학과 전문의 상주 병원 및 산재보험/자동차보험 집중 치료실 보유 여부를 바로 확인하실 수 있습니다.",
+      highlight: "산재 특화"
+    },
+    {
+      id: "gyeongnam",
+      name: "경상남도",
+      zone: "yeongnam",
+      zoneName: "영남권",
+      url: "https://gyeongnam.koreapmr.com/",
+      status: "active",
+      count: 95,
+      searchKeys: "경남 경상남도 gyeongnam 영남권 회복기 회복기재활 간호간병 로봇재활 로봇 산재자보 산재 창원 김해 양산 진주 양산부산대병원",
+      tags: ["복지부 지정 회복기 4개소", "간호간병통합 운영", "로봇치료실 구비", "김해·양산 연동"],
+      desc: "창원, 김해, 양산 등 경상남도 시·군 지역 내 최적의 재활 치료실 및 대학병원 전원 협력 기관 검색.",
       highlight: ""
     },
     {
       id: "gyeongbuk",
       name: "경상북도",
+      zone: "yeongnam",
+      zoneName: "영남권",
       url: "https://gyeongbuk.koreapmr.com/",
       status: "active",
       count: 88,
-      searchKeys: "경북 경상북도 gyeongbuk 포항 구미 경산 안동 영주 경주 김천 영천 상주 문경 울릉도",
-      tags: ["울릉도 연계 가이드", "복지부 지정 기관 포함"],
+      searchKeys: "경북 경상북도 gyeongbuk 영남권 회복기 회복기재활 간호간병 산재자보 산재 포항 구미 경산 안동 울릉도",
+      tags: ["복지부 지정 회복기", "간호간병 운영", "울릉도 연계 가이드", "산재 인증기관"],
       desc: "포항, 구미, 경산, 안동 등 경상북도 시·군 지역 내 회복기 집중재활 및 간호간병 서비스 병원 검색.",
       highlight: ""
     },
     {
+      id: "chungnam",
+      name: "대전·충청남도",
+      zone: "chungcheong",
+      zoneName: "충청·세종권",
+      url: "https://chungnamdaejeon.koreapmr.com/",
+      status: "active",
+      count: 70,
+      searchKeys: "충남 충청남도 대전 대전광역시 chungnam daejeon 충청권 회복기 회복기재활 간호간병 로봇재활 로봇 산재자보 산재 대전충남권역재활",
+      tags: ["대전충남권역재활 연동", "복지부 지정 회복기 3개소", "간호간병통합", "로봇치료실"],
+      desc: "대전 및 충남 전역의 권역재활병원, 보건복지부 지정 회복기 재활기관 정보가 실시간 연동되어 있습니다.",
+      highlight: "권역재활 연동"
+    },
+    {
       id: "chungbuk",
       name: "충청북도",
+      zone: "chungcheong",
+      zoneName: "충청·세종권",
       url: "https://chungbuk.koreapmr.com/",
       status: "active",
       count: 41,
-      searchKeys: "충북 충청북도 chungbuk 청주 충주 제천 진천 음성 증평 괴산 보은 옥천 영동 단양",
-      tags: ["복지부 지정 회복기 포함", "충북 11개 시군"],
+      searchKeys: "충북 충청북도 chungbuk 충청권 회복기 회복기재활 간호간병 산재자보 산재 청주 충주 제천 진천 음성",
+      tags: ["복지부 지정 회복기", "간호간병통합 가동", "충북 11개 시군 망라"],
       desc: "청주, 충주, 제천 등 충청북도 11개 시·군 내 최적의 재활 치료실 보유 병원 및 요양기관 데이터.",
       highlight: ""
     },
     {
-      id: "chungnam",
-      name: "충남대전통합특별시",
-      url: "https://chungnamdaejeon.koreapmr.com/",
-      status: "active",
-      count: 70,
-      searchKeys: "충남 충청남도 대전 대전광역시 충남대전통합특별시 chungnam daejeon 유성 서구 둔산 천안 아산 서산 당진 논산",
-      tags: ["대전충남권역재활 연동", "복지부 지정 회복기"],
-      desc: "대전 및 충남 전역의 권역재활병원, 보건복지부 지정 회복기 재활기관 정보가 실시간 연동되어 있습니다.",
-      highlight: "대전·충남 통합"
-    },
-    {
       id: "sejong",
       name: "세종특별자치시",
+      zone: "chungcheong",
+      zoneName: "충청·세종권",
       url: "https://sejong.koreapmr.com/",
       status: "active",
       count: 18,
-      searchKeys: "세종 세종시 세종특별자치시 sejong 조치원 아름동 나성동",
-      tags: ["교차검토 완료 데이터", "통원 집중 클리닉"],
+      searchKeys: "세종 세종시 세종특별자치시 sejong 충청권 간호간병 요양병원 통원재활",
+      tags: ["통원 1:1 재활클리닉", "대전·충청권 전원 연계", "요양병원 안내"],
       desc: "세종 관내 요양병원 및 통원 1:1 재활 클리닉, 인근 대전·충청권 전원 연계 병원 안내.",
       highlight: ""
     },
     {
+      id: "jeonnam",
+      name: "광주·전라남도",
+      zone: "honam",
+      zoneName: "호남권",
+      url: "https://jeonnamgwangju.koreapmr.com/",
+      status: "active",
+      count: 62,
+      searchKeys: "전남 전라남도 광주 광주광역시 jeonnam gwangju 호남권 회복기 회복기재활 간호간병 로봇재활 로봇 산재자보 산재 광주365 호남권역재활 우암병원",
+      tags: ["호남권역재활 연동", "복지부 지정 회복기 3개소", "로봇보행 치료실", "간호간병통합"],
+      desc: "광주365재활병원, 호남권역재활병원, 우암병원 등 전라·광주 관내 핵심 회복기 재활병원 집중 안내.",
+      highlight: "회복기 다수"
+    },
+    {
       id: "jeonbuk",
       name: "전북특별자치도",
+      zone: "honam",
+      zoneName: "호남권",
       url: "https://jeonbuk.koreapmr.com/",
       status: "active",
       count: 55,
-      searchKeys: "전북 전북특별자치도 전라북도 jeonbuk 전주 익산 군산 정읍 남원 김제 드림솔병원 예수병원 전주병원",
-      tags: ["드림솔병원 회복기 지정", "산재 인증 재활병원"],
+      searchKeys: "전북 전북특별자치도 전라북도 jeonbuk 호남권 회복기 회복기재활 간호간병 산재자보 산재 전주 익산 군산 드림솔 예수병원",
+      tags: ["드림솔병원 회복기 지정", "산재 인증 재활병원", "간호간병통합 운영"],
       desc: "드림솔병원(회복기 지정), 예수병원·전주병원(산재 인증) 및 전북 관내 55개 전문 기관 안내.",
       highlight: ""
     },
     {
-      id: "jeonnam",
-      name: "전라광주통합특별시",
-      url: "https://jeonnamgwangju.koreapmr.com/",
+      id: "gangwon",
+      name: "강원특별자치도",
+      zone: "gangwonjeju",
+      zoneName: "강원·제주권",
+      url: "https://gangwonstate.koreapmr.com/",
       status: "active",
-      count: 62,
-      searchKeys: "전남 전라남도 광주 광주광역시 전라광주통합특별시 jeonnam gwangju 서구 상무 북구 광산구 남구 동구 순천 여수 목포 나주 광주365 호남권역재활 우암병원",
-      tags: ["호남권역재활 연동", "복지부 지정 회복기 3개소"],
-      desc: "광주365재활병원, 호남권역재활병원, 우암병원 등 전라·광주 관내 핵심 회복기 재활병원 집중 안내.",
-      highlight: "광주·전남 통합"
+      count: 45,
+      searchKeys: "강원 강원도 강원특별자치도 gangwon 강원권 회복기 회복기재활 간호간병 산재자보 산재 춘천 원주 강릉 강원권역재활",
+      tags: ["강원권역재활 연동", "복지부 지정 회복기", "간호간병통합", "산재 인증기관"],
+      desc: "춘천, 원주, 강릉 등 강원특별자치도 18개 시·군 내 최적의 1:1 집중 재활 치료실 및 요양병원 정보.",
+      highlight: ""
     },
     {
       id: "jeju",
       name: "제주특별자치도",
+      zone: "gangwonjeju",
+      zoneName: "강원·제주권",
       url: "https://jeju.koreapmr.com/",
       status: "active",
       count: 22,
-      searchKeys: "제주 제주도 제주특별자치도 jeju 제주시 서귀포 제주대병원 제주권역재활",
-      tags: ["제주권역재활병원(회복기)", "도내 재활기관 망라"],
+      searchKeys: "제주 제주도 제주특별자치도 jeju 제주권 회복기 회복기재활 간호간병 산재자보 제주시 서귀포 제주대병원 제주권역재활",
+      tags: ["제주권역재활병원(회복기)", "간호간병통합 운영", "도내 재활기관 망라"],
       desc: "제주권역재활병원(복지부 지정 회복기), 제주대병원 및 서귀포 지역 특화 요양병원 등 제주 관내 데이터 연동.",
       highlight: ""
     }
